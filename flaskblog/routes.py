@@ -3,7 +3,7 @@ import secrets
 from PIL import Image
 from flaskblog.models import User, Post
 from flaskblog import app, db, bcrypt
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, abort
 from flask_login import login_user, current_user, logout_user, login_required
 from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 
@@ -98,7 +98,8 @@ def new_post():
         db.session.commit()
         flash('Your post has been created!', 'success')
         return redirect(url_for('home'))
-    return render_template('create_post.html', title='New Post', form=form)
+    return render_template('create_post.html', title='New Post', 
+                            form=form, legend="New Post")
 
 @app.route("/post/<int:post_id>")
 def post(post_id):
