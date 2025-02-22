@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, url_for, redirect
 from flaskblog.models import Post
 
 main = Blueprint('main', __name__)
@@ -20,3 +20,11 @@ def about():
 def inject_latest_posts():
     latest_posts = Post.query.order_by(Post.date_posted.desc()).limit(3).all()
     return dict(latest_posts=latest_posts)
+
+@main.route("/search")
+def search():
+    query = request.args.get('query')
+    if not query:
+        return redirect(url_for('main.home'))
+    posts = Post.query.filter(Post.title.like(f"%{query}%") | Post.content.ilike(f"%{query}%")).all()
+    return render_template('search_results.html', posts=posts, query=query)
