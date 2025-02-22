@@ -80,6 +80,16 @@
               {% endfor %}
             </ul>
           </div>
+
+          <div class="content-section mt-3">
+            <h3>Categories</h3>
+            <ul class="list-group">
+              <li class="list-group-item"><a href="{{ url_for('posts.category_posts', category='General') }}">General</a></li>
+              <li class="list-group-item"><a href="{{ url_for('posts.category_posts', category='Sound') }}">Sound</a></li>
+              <li class="list-group-item"><a href="{{ url_for('posts.category_posts', category='Image') }}">Image</a></li>
+            </ul>
+          </div>
+
         </div>
       </div>
     </main>

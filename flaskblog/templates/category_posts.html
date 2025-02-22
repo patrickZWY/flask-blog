@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>Posts in "{{ category }}"</h2>
+    {% for post in posts %}
+        <article class="media content-section">
+            <h2><a class="article-title" href="{{ url_for ('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
+        </article>
+    {% endfor %}
+{% endblock %}
