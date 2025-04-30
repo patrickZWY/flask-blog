@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% if quote %}
+        <h1> Here is your quote of the day! </h1>
+        <h2> {{ quote }} </h2>
+    {% else %}
+        <h1> No Quotes for you today ! <h1>
+    {% endif %}
+
+{% endblock content %}
+

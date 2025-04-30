@@ -15,3 +15,8 @@ to download packages, pip install -r requirements.txt
 
 macos airplay listening on port 5000
 lsof -i :5000 to check
+
+testing:
+test4
+test2@gmail.com
+test4
