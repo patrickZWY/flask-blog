@@ -23,6 +23,17 @@ body {
   .site-header .navbar-nav .nav-link.active {
     font-weight: 500;
   }
+
+  .site-header .navbar-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-header .navbar-nav ul li {
+    display: inline-block;
+    margin-right: 0.2rem;
+  }
   
   .content-section {
     background: #ffffff;

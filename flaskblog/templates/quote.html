@@ -1,11 +1,46 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% if quote %}
-        <h1> Here is your quote of the day! </h1>
-        <h2> {{ quote }} </h2>
-    {% else %}
-        <h1> No Quotes for you today ! <h1>
-    {% endif %}
+<body class="container" style="background-color: powderblue;">
+    <br />
+    <h1>Dice</h1>
+    <br />
+    {% for item in files_list %}
+    <img src="/static/dices/{{ item }}.png" alt="" style="width: 70px">
+    {% endfor %}
+    <br /><br />
 
+    <form method="post">
+        <label for=""># of Sides</label>
+        <input 
+            type="range" 
+            name="num_sides" 
+            value="{{ sides_default }}" 
+            min="1" 
+            max="6" 
+            oninput="this.nextElementSibling.value = this.value"
+        />
+        <output>{{sides_default}}</output>
+        <br />
+        <label># of Dice</label>
+        <input 
+            type="range" 
+            name="num_dice" 
+            value="{{ dice_default }}" 
+            min="1" 
+            max="6"
+            oninput="this.nextElementSibling.value = this.value"
+        />
+        <output>{{dice_default}}</output>
+        <br /><br />
+        <input type="submit" value="Roll" class="btn btn-primary" />
+    </form>
+
+    {% if chosen_quote %}
+        <h1> Here is your quote of the day! </h1>
+        <h2> {{ chosen_quote }} </h2>
+    {% else %}
+        <h1> Roll dice for quote! <h1>
+    {% endif %}
+</body>
 {% endblock content %}
 
