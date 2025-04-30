@@ -7,28 +7,43 @@ quote = Blueprint('quote', __name__)
 @login_required
 @quote.route("/quote", methods=['GET', 'POST'])
 def check_quote_of_the_day():
+    show_dice = request.args.get('show_dice') == '1'
+    if show_dice:
+        if request.method == "GET":
+            return render_template("quote.html", files_list=[6], sides_default=6, dice_default=1)
+        if request.method == "POST":
 
-    if request.method == "GET":
-        return render_template("quote.html", files_list=[6], sides_default=6, dice_default=1)
-    if request.method == "POST":
+            if current_user.is_authenticated:
+                num_sides = int(request.form.get("num_sides"))
+                num_dice = int(request.form.get("num_dice"))
 
-        if current_user.is_authenticated:
-            num_sides = int(request.form.get("num_sides"))
-            num_dice = int(request.form.get("num_dice"))
-
-            chosen_nums = []
-            for x in range(0, num_dice):
-                chosen_nums.append(random.randint(1, num_sides))
+                chosen_nums = []
+                for x in range(0, num_dice):
+                    chosen_nums.append(random.randint(1, num_sides))
             
-            files_list = []
-            for item in chosen_nums:
-                files_list.append(item)
-            total = sum(files_list) % 6
-            quotes = {0 : "Quote 1", 1 : "Quote 2", 2 : "Quote 3", 3 : "Quote 4", 4 : "Quote 5", 5 : "Quote 6"}
-            chosen_quote = quotes[total]
+                files_list = []
+                for item in chosen_nums:
+                    files_list.append(item)
+                total = sum(files_list) % 6
+                quotes = {0 : "Habet ergo et superbia quendam appetitum unitatis et omnipotentiae, sed in rerum naturalium principatu, quae omnia transeunt sicut umbra.  \n\nSantus Augustinus", 
+                        1 : "A quotation is a quotation is a quotation is a quotation.", 
+                        2 : "Try Again.", 
+                        3 : "Bad luck.", 
+                        4 : "Why?", 
+                        5 : "And?"}
+                chosen_quote = quotes[total]
 
             
-            return render_template('quote.html', title='Quote', files_list=files_list, sides_default=num_sides, dice_default=num_dice, chosen_quote=chosen_quote)
-        else:
-            flash("You need to login in first to see quote!", "info")
-            return redirect(url_for('main.home'))
+                return render_template(
+                    'quote.html', 
+                    title='Quote', 
+                    files_list=files_list, 
+                    sides_default=num_sides, 
+                    dice_default=num_dice, 
+                    chosen_quote=chosen_quote,
+                    show_dice=True)
+            else:
+                flash("You need to login in first to see quote!", "info")
+                return redirect(url_for('main.home'))
+    else:
+        return render_template('poem.html')

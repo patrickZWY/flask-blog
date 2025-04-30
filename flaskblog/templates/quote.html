@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
-<body class="container" style="background-color: powderblue;">
+<div class="container py-5" style="background-color: powderblue;">
+
     <br />
     <h1>Dice</h1>
     <br />
@@ -37,10 +38,12 @@
 
     {% if chosen_quote %}
         <h1> Here is your quote of the day! </h1>
+        <br/><br/>
         <h2> {{ chosen_quote }} </h2>
     {% else %}
         <h1> Roll dice for quote! <h1>
     {% endif %}
-</body>
+        </div>
+    
 {% endblock content %}
 
